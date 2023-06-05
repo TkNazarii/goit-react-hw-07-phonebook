@@ -1,21 +1,47 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 import { contactInitialState } from "./contactInitialState";
+import { addContactsThunk, deleteContactsThunk, getContactsThunk } from "./thunk";
+
+const customArr = [getContactsThunk, addContactsThunk, deleteContactsThunk];
+
+const foo = (status) => customArr.map((el) => el[status]);
+
+const defaultStatus = {
+  pending: 'pending',
+  fulfilled: 'fulfilled',
+  rejected: 'rejected'
+};
+
+const handlePending = (state) => {
+  state.isLoading = true;
+};
+
+const handleFulfilled = (state, action) => {
+  state.isLoading = false;
+  state.items = action.payload;
+  const filteredItems = state.items.filter((item) => item.id !== action.payload);
+  state.items = filteredItems;
+  state.error = null;
+};
+
+const handleRejected = (state, action) => {
+  state.isLoading = false;
+  state.items = [];
+  state.error = action.payload;
+};
 
 export const contactSlice = createSlice({
-	name: 'contact',
-	initialState: contactInitialState,
-	reducers: {
-		addContact: (state, action) => ({
-			...state,
-			contacts: [...state.contacts, { id: action.payload.id, name: action.payload.name, number: action.payload.number }]
-		}),
-		delContact: (state, action) => ({
-			...state,
-			contacts: action.payload
-		}),
-	}
-})
+  name: 'myContacts',
+  initialState: contactInitialState,
+
+  reducers: {},
+
+  extraReducers: (builder) => {
+    builder
+      .addMatcher(isAnyOf(...foo(defaultStatus.pending)), handlePending)
+      .addMatcher(isAnyOf(...foo(defaultStatus.fulfilled)), handleFulfilled)
+      .addMatcher(isAnyOf(...foo(defaultStatus.rejected)), handleRejected);
+  },
+});
 
 export const contactReducer = contactSlice.reducer;
-
-export const { addContact , delContact } = contactSlice.actions

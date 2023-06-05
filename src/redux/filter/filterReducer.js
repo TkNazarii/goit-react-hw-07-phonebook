@@ -1,16 +1,16 @@
-import { createReducer } from "@reduxjs/toolkit"
+// import { createReducer } from "@reduxjs/toolkit"
 
-import { filterInitialState } from "./filterInitialState"
-import { changeFilterValue } from "./actions"
+// import { filterInitialState } from "./filterInitialState"
+// import { changeFilterValue } from "./actions"
 
-export const filterReducer = createReducer(filterInitialState, {
+// export const filterReducer = createReducer(filterInitialState, {
 
-	// квадратні дужки для передачі назви функції як рядка
-	[changeFilterValue]: (state, action) => ({
-				  ...state,
-				  value: action.payload
-				}),
-})
+// 	// квадратні дужки для передачі назви функції як рядка
+// 	[changeFilterValue]: (state, action) => ({
+// 				  ...state,
+// 				  value: action.payload
+// 				}),
+// })
 
 
 

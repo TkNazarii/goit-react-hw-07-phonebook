@@ -1,19 +1,20 @@
-import { createReducer } from "@reduxjs/toolkit"
-import { addContact, delContact } from "./actions"
-import { contactInitialState } from "./contactInitialState"
+// import { createReducer } from "@reduxjs/toolkit"
+// import { addContact, delContact } from "./actions"
+// import { contactInitialState } from "./contactInitialState"
 
-export const contactReducer = createReducer(contactInitialState, {
+// export const contactReducer = createReducer(contactInitialState, {
 
-	[addContact]: (state, action) => ({
-		...state,
-		contacts: [...state.contacts, { id: action.payload.id, name: action.payload.name, number: action.payload.number }]
-	}),
+// 	[addContact]: (state, action) => ({
+// 		...state,
+// 		contacts: [...state.contacts, { id: action.payload.id, name: action.payload.name, number: action.payload.number }]
+// 	}),
 
-	[delContact]: (state, action) => ({
-				  ...state,
-				  contacts: action.payload
-				}),
-})
+// 	[delContact]: (state, action) => ({
+// 				  ...state,
+// 				  contacts: action.payload
+// 				}),
+// })
+
 
 
 

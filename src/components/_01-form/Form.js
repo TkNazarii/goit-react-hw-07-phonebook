@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { addContact } from 'redux/contact/contactSlice';
+// import { addContact } from 'redux/contact/contactSlice';
 
 import { nanoid } from 'nanoid';
 
 import css from './form.module.scss';
+import { addContactsThunk, getContactsThunk } from 'redux/contact/thunk';
 
 const Form = () => {
+
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
@@ -31,11 +33,17 @@ const Form = () => {
       number
     };
 
-    dispatch(addContact(newContact));
+    dispatch(addContactsThunk(newContact));
+    // dispatch(addContact(newContact));
 
     setName('');
     setNumber('');
   };
+
+  useEffect(() => {
+         dispatch(getContactsThunk());
+    
+  }, [dispatch]);
 
   return (
     <form className={css['form']} onSubmit={handleSubmit}>
