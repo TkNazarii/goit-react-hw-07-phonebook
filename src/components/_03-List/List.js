@@ -1,22 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { getContactsThunk, deleteContactsThunk } from "../../redux/contact/thunk";
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  getContactsThunk,
+  deleteContactsThunk,
+} from '../../redux/contact/thunk';
 
 const List = () => {
-  const value = useSelector((state) => state.filterValue.value);
-  const items = useSelector((state) => state.allContacts.items);
+  const value = useSelector(state => state.filterValue.value);
+  const items = useSelector(state => state.allContacts.items);
   const dispatch = useDispatch();
   const [localItems, setLocalItems] = useState(items); // Локальний стан для зберігання списку елементів
 
   useEffect(() => {
     dispatch(getContactsThunk());
   }, [dispatch]);
-  
-  const handleDelete = (id) => {
-	
-	dispatch(deleteContactsThunk(id)); //видадяє з бази
 
-    const filteredItems = localItems.filter((item) => item.id !== id);
+  const handleDelete = id => {
+    dispatch(deleteContactsThunk(id)); //видадяє з бази
+
+    const filteredItems = localItems.filter(item => item.id !== id);
     setLocalItems(filteredItems); // Оновлюємо локальний стан з новим списком елементів
   };
 
@@ -27,8 +29,8 @@ const List = () => {
   return (
     <ul>
       {localItems
-        .filter((item) => item.name.toLowerCase().includes(value.toLowerCase()))
-        .map((item) => (
+        .filter(item => item.name.toLowerCase().includes(value.toLowerCase()))
+        .map(item => (
           <li key={item.id}>
             {item.name}: {item.number}
             <button type="button" onClick={() => handleDelete(item.id)}>
@@ -41,24 +43,6 @@ const List = () => {
 };
 
 export default List;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import css from './list.module.scss';
 // import React, { useEffect, useState } from "react";
@@ -76,7 +60,6 @@ export default List;
 
 // const [updateList, setUpdateList] = useState(false);
 
-  
 //   const dispatch = useDispatch();
 
 //   // Запит повертає масив з бази
@@ -96,7 +79,6 @@ export default List;
 //     }
 //   }, [dispatch, updateList]);
 
-
 //   return (
 //     <ul className={css.list}>
 
@@ -110,7 +92,7 @@ export default List;
 //             </button>
 //           </li>
 //         ))}
-    
+
 // 		{/* <li>asasd</li> */}
 // 	</ul>
 //   );

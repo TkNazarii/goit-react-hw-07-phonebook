@@ -34,8 +34,6 @@ const Form = () => {
     };
 
     dispatch(addContactsThunk(newContact));
-    // dispatch(addContact(newContact));
-
     setName('');
     setNumber('');
   };
