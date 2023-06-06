@@ -12,7 +12,7 @@ const Form = () => {
 
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  const [localAdd, setLocalAdd] = useState(true);
+  const [localAdd, setLocalAdd] = useState({});
 
   const dispatch = useDispatch();
 
@@ -35,7 +35,7 @@ const Form = () => {
     };
 
     dispatch(addContactsThunk(newContact));
-	setLocalAdd(!localAdd)
+	setLocalAdd(newContact)
 
     setName('');
     setNumber('');
