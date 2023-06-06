@@ -1,32 +1,37 @@
-import { createSlice, isAnyOf } from "@reduxjs/toolkit";
-import { contactInitialState } from "./contactInitialState";
-import { addContactsThunk, deleteContactsThunk, getContactsThunk } from "./thunk";
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
+import { contactInitialState } from './contactInitialState';
+import {
+  addContactsThunk,
+  deleteContactsThunk,
+  getContactsThunk,
+} from './thunk';
 
 const customArr = [getContactsThunk, addContactsThunk, deleteContactsThunk];
 
-const foo = (status) => customArr.map((el) => el[status]);
+const foo = status => customArr.map(el => el[status]);
 
 const defaultStatus = {
   pending: 'pending',
   fulfilled: 'fulfilled',
-  rejected: 'rejected'
+  rejected: 'rejected',
 };
 
-const handlePending = (state) => {
+const handlePending = state => {
   state.isLoading = true;
 };
 
 const handleFulfilled = (state, action) => {
+  if (typeof action.payload === 'string') {
+    const filteredItems = state.items.filter(
+      item => item.id !== action.payload
+    );
+    state.items = filteredItems;
+  } else if (Array.isArray(action.payload)) {
+    state.items = action.payload;
+  }
 
-	if (typeof action.payload === 'string') {
-		const filteredItems = state.items.filter((item) => item.id !== action.payload);
-		state.items = filteredItems;
-	} else if (Array.isArray(action.payload)) {
-		state.items = action.payload;
-	}
-	
-	state.isLoading = false;
-	state.error = null;
+  state.isLoading = false;
+  state.error = null;
 };
 
 const handleRejected = (state, action) => {
@@ -41,7 +46,7 @@ export const contactSlice = createSlice({
 
   reducers: {},
 
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
       .addMatcher(isAnyOf(...foo(defaultStatus.pending)), handlePending)
       .addMatcher(isAnyOf(...foo(defaultStatus.fulfilled)), handleFulfilled)

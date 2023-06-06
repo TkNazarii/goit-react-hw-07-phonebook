@@ -4,7 +4,7 @@ import {
   getContactsThunk,
   deleteContactsThunk,
 } from '../../redux/contact/thunk';
-import css from './list.module.scss'
+import css from './list.module.scss';
 
 const List = () => {
   const value = useSelector(state => state.filterValue.value);
@@ -12,7 +12,7 @@ const List = () => {
   const dispatch = useDispatch();
   const [localItems, setLocalItems] = useState([]); // Локальний стан для зберігання списку елементів
 
-useEffect(() => {
+  useEffect(() => {
     dispatch(getContactsThunk());
   }, [dispatch]);
 
@@ -20,7 +20,7 @@ useEffect(() => {
     setLocalItems(items); // Оновлення локального стану після зміни списку елементів у Redux Store
   }, [items]);
 
-const handleDelete = id => {
+  const handleDelete = id => {
     dispatch(deleteContactsThunk(id)); //видадяє з бази
 
     const filteredItems = localItems.filter(item => item.id !== id);
@@ -33,7 +33,8 @@ const handleDelete = id => {
         .filter(item => item.name.toLowerCase().includes(value.toLowerCase()))
         .map(item => (
           <li className={css['list__item']} key={item.id}>
-            {item.name}: <br/>{item.number}
+            {item.name}: <br />
+            {item.number}
             <button type="button" onClick={() => handleDelete(item.id)}>
               Delete
             </button>

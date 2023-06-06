@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-// import { addContact } from 'redux/contact/contactSlice';
-
 import { nanoid } from 'nanoid';
 
 import css from './form.module.scss';
 import { addContactsThunk, getContactsThunk } from '../../redux/contact/thunk';
 
 const Form = () => {
-
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const [localAdd, setLocalAdd] = useState({});
@@ -31,26 +28,24 @@ const Form = () => {
     const newContact = {
       id: nanoid(5),
       name,
-      number
+      number,
     };
 
     dispatch(addContactsThunk(newContact));
-	setLocalAdd(newContact)
+    setLocalAdd(newContact);
 
     setName('');
     setNumber('');
   };
 
   useEffect(() => {
-	dispatch(getContactsThunk());
-  }, [localAdd])
-
- 
+    dispatch(getContactsThunk());
+  }, [localAdd]);
 
   return (
     <form className={css['form']} onSubmit={handleSubmit}>
       <label className={css['form__label']}>
-        <p>Name{' '}</p>
+        <p>Name </p>
         <input
           className={css['form__input']}
           value={name}
@@ -63,7 +58,7 @@ const Form = () => {
       </label>
 
       <label className={css['form__label']}>
-        <p>Number{' '}</p>
+        <p>Number </p>
         <input
           className={css['form__input']}
           value={number}
