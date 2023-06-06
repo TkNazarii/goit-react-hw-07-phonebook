@@ -13,6 +13,8 @@ export const addContactsThunk = createAsyncThunk(
   "contact/addContact",
   async (contact) => {
     const response = await addContactApi(contact);
+	console.log(response);
+	// return
     return response.data;
   }
 );
@@ -21,6 +23,7 @@ export const deleteContactsThunk = createAsyncThunk(
 	"contact/deleteContact",
 	async (id) => {
 	  await deleteContactApi(id);
+	  console.log(id);
 	  return id; // Повертаємо id елемента, який був видалений
 	}
   );

@@ -19,9 +19,15 @@ const handlePending = (state) => {
 const handleFulfilled = (state, action) => {
   state.isLoading = false;
   state.items = action.payload;
-  const filteredItems = state.items.filter((item) => item.id !== action.payload);
-  state.items = filteredItems;
-  state.error = null;
+  //delete
+  if (typeof action.payload !== 'object') {
+	  const filteredItems = state.items.filter((item) => item.id !== action.payload);
+	  state.items = filteredItems;
+  }
+// const filteredItems = state.items.filter((item) => item.id !== action.payload);
+// 	  state.items = filteredItems;
+
+state.error = null;
 };
 
 const handleRejected = (state, action) => {

@@ -11,20 +11,20 @@ const List = () => {
   const dispatch = useDispatch();
   const [localItems, setLocalItems] = useState(items); // Локальний стан для зберігання списку елементів
 
-  useEffect(() => {
+useEffect(() => {
     dispatch(getContactsThunk());
   }, [dispatch]);
 
-  const handleDelete = id => {
+  useEffect(() => {
+    setLocalItems(items); // Оновлення локального стану після зміни списку елементів у Redux Store
+  }, [items]);
+
+const handleDelete = id => {
     dispatch(deleteContactsThunk(id)); //видадяє з бази
 
     const filteredItems = localItems.filter(item => item.id !== id);
     setLocalItems(filteredItems); // Оновлюємо локальний стан з новим списком елементів
   };
-
-  useEffect(() => {
-    dispatch(getContactsThunk());
-  }, [localItems, dispatch]);
 
   return (
     <ul>

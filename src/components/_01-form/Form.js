@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { nanoid } from 'nanoid';
 
 import css from './form.module.scss';
-import { addContactsThunk, getContactsThunk } from 'redux/contact/thunk';
+import { addContactsThunk, getContactsThunk } from '../../redux/contact/thunk';
 
 const Form = () => {
 
@@ -37,11 +37,6 @@ const Form = () => {
     setName('');
     setNumber('');
   };
-
-  useEffect(() => {
-         dispatch(getContactsThunk());
-    
-  }, [dispatch]);
 
   return (
     <form className={css['form']} onSubmit={handleSubmit}>
