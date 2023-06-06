@@ -24,6 +24,7 @@ const App = () => {
 	  testGetContactApi();
 
 
+
   return (
     <div className={css['vrapper']}>
       <h1 className={css['vrapper__title']}>Phonebook</h1>

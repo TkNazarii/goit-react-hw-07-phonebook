@@ -17,12 +17,6 @@
 
 
 
-
-
-
-
-
-
 // вирішує проблему комбайна
 // export const contactReducer = (state = initialState.allContacts, action) => {
 // 	switch (action.type) {

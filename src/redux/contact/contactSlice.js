@@ -17,17 +17,16 @@ const handlePending = (state) => {
 };
 
 const handleFulfilled = (state, action) => {
-  state.isLoading = false;
-  state.items = action.payload;
-  //delete
-  if (typeof action.payload !== 'object') {
-	  const filteredItems = state.items.filter((item) => item.id !== action.payload);
-	  state.items = filteredItems;
-  }
-// const filteredItems = state.items.filter((item) => item.id !== action.payload);
-// 	  state.items = filteredItems;
 
-state.error = null;
+	if (typeof action.payload === 'string') {
+		const filteredItems = state.items.filter((item) => item.id !== action.payload);
+		state.items = filteredItems;
+	} else if (Array.isArray(action.payload)) {
+		state.items = action.payload;
+	}
+	
+	state.isLoading = false;
+	state.error = null;
 };
 
 const handleRejected = (state, action) => {
