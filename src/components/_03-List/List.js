@@ -4,6 +4,7 @@ import {
   getContactsThunk,
   deleteContactsThunk,
 } from '../../redux/contact/thunk';
+import css from './list.module.scss'
 
 const List = () => {
   const value = useSelector(state => state.filterValue.value);
@@ -31,8 +32,8 @@ const handleDelete = id => {
       {localItems
         .filter(item => item.name.toLowerCase().includes(value.toLowerCase()))
         .map(item => (
-          <li key={item.id}>
-            {item.name}: {item.number}
+          <li className={css['list__item']} key={item.id}>
+            {item.name}: <br/>{item.number}
             <button type="button" onClick={() => handleDelete(item.id)}>
               Delete
             </button>
