@@ -10,7 +10,7 @@ const List = () => {
   const value = useSelector(state => state.filterValue.value);
   const items = useSelector(state => state.allContacts.items);
   const dispatch = useDispatch();
-  const [localItems, setLocalItems] = useState(items); // Локальний стан для зберігання списку елементів
+  const [localItems, setLocalItems] = useState([]); // Локальний стан для зберігання списку елементів
 
 useEffect(() => {
     dispatch(getContactsThunk());

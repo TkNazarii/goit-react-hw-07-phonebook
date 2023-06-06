@@ -12,6 +12,7 @@ const Form = () => {
 
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const [localAdd, setLocalAdd] = useState(true);
 
   const dispatch = useDispatch();
 
@@ -34,9 +35,17 @@ const Form = () => {
     };
 
     dispatch(addContactsThunk(newContact));
+	setLocalAdd(!localAdd)
+
     setName('');
     setNumber('');
   };
+
+  useEffect(() => {
+	dispatch(getContactsThunk());
+  }, [localAdd])
+
+ 
 
   return (
     <form className={css['form']} onSubmit={handleSubmit}>
